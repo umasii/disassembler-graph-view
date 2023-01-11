@@ -6,6 +6,8 @@ Doesn't really have code to read files right now as I can't figure out how that 
 
 Graphs can be very messy due to branch redundancy. A lot of the branch blocks have repeated instructions, and I'll be looking to cut down on this in the near future.
 
+Just as a disclaimer, I have no frontend experience so please don't judge this code too hard. Pull requests welcome.
+
 ## Installation
 
 ```sh
