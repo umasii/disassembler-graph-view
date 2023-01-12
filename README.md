@@ -8,6 +8,8 @@ Doesn't really have code to read files right now as I can't figure out how that 
 
 Just as a disclaimer, I have no frontend experience so please don't judge this code too hard. Pull requests welcome.
 
+Doesn't yet include branches that are indicated by `N` and `I` values.
+
 ## Installation
 
 ```sh
