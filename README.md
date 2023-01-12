@@ -1,14 +1,14 @@
 # Disassembler Graph View
 
-Fork of https://github.com/wbkd/react-flow-example-apps/tree/main/reactflow-nextjs for the purpose of viewing the control flow of bytecode functions. All the code i wrote is in `src/components/Flow/getNodes.tsx`.
+Fork of https://github.com/wbkd/react-flow-example-apps/tree/main/reactflow-nextjs for the purpose of viewing the control flow of bytecode functions. All the code I wrote is in `src/components/Flow/getNodes.tsx`.
 
-To see the graph of a function, change the argument to `getFunctionNodes()`in `src/components/Flow/index.tsx`
+To see the graph of a function, change the argument to `getFunctionNodes()`in `src/components/Flow/index.tsx`.
 
 Doesn't really have code to read files right now as I can't figure out how that works with Next.JS. For the time being, edit `functions.js` and `branches.js` in the src directory and export the output of my disassembler. I plan on fixing this soon.
 
 Just as a disclaimer, I have no frontend experience so please don't judge this code too hard. Pull requests welcome.
 
-Doesn't yet include branches that are indicated by `N` and `I` values.
+Doesn't yet include branches that are indicated by `N` and `I` values, and the redundant branch block splitting algorithm is not as optimal as it could be. Specifically, there are certain ignorable cases based on the length of each block.
 
 ## Installation
 
