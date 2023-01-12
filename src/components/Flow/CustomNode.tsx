@@ -59,5 +59,5 @@ const FunctionNode: FC<NodeProps> = ({ data, xPos, yPos }) => {
   );
 };
 
-export var branchBlock = memo(BranchNode);
-export var functionBlock = memo(FunctionNode);
+export const BranchBlock = memo(BranchNode);
+export const FunctionBlock = memo(FunctionNode);

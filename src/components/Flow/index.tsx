@@ -8,7 +8,7 @@ import ReactFlow, {
   Edge,
   ConnectionLineType,
 } from "reactflow";
-import { branchBlock, functionBlock } from "./CustomNode";
+import { BranchBlock, FunctionBlock } from "./CustomNode";
 import styles from "./Flow.module.css";
 import { getFunctionNodes } from "./getNodes";
 
@@ -17,8 +17,8 @@ const initialNodes = graph[0];
 const initialEdges = graph[1];
 
 const nodeTypes = {
-  branch: branchBlock,
-  function: functionBlock,
+  branch: BranchBlock,
+  function: FunctionBlock,
 };
 
 const defaultEdgeOptions = {
