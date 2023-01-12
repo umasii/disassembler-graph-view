@@ -1,6 +1,6 @@
 # Disassembler Graph View
 
-Fork of `https://github.com/wbkd/react-flow-example-apps/tree/main/reactflow-nextjs` for the purpose of viewing the control flow of bytecode functions.
+Fork of `https://github.com/wbkd/react-flow-example-apps/tree/main/reactflow-nextjs` for the purpose of viewing the control flow of bytecode functions. All the code i wrote is in `src/components/Flow/getNodes.tsx`.
 
 To see the graph of a function, change the argument to `getFunctionNodes()`in `src/components/Flow/index.tsx`
 
