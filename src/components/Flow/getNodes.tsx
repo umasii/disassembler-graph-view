@@ -29,6 +29,8 @@ export function getFunctionNodes(ptr: string): [Node[], Edge[]] {
   let branch2Nodes = getBranchNodes(branch2, ptr, scannedBranches, pointers);
   let nodes = [functionNode].concat(branch1Nodes[0]).concat(branch2Nodes[0]);
   let edges = branch1Nodes[1].concat(branch2Nodes[1]);
+
+  // I think this is something like O(3n^3) roughly
   for (let i = 0; i < nodes.length; i++) {
     // check if any of the pointer arrays have that node as a subset
     for (let j = 0; j < pointers.length; j++) {
