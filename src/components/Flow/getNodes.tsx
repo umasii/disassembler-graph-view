@@ -25,14 +25,10 @@ export function getFunctionNodes(ptr: string): [Node[], Edge[]] {
   let branch2 = lastElement.split(":")[1].split("|")[1].trim();
   let scannedBranches: Set<string> = new Set();
   let pointers: string[][] = [];
-  console.log(branch1);
-  console.log(branch2);
   let branch1Nodes = getBranchNodes(branch1, ptr, scannedBranches, pointers);
   let branch2Nodes = getBranchNodes(branch2, ptr, scannedBranches, pointers);
   let nodes = [functionNode].concat(branch1Nodes[0]).concat(branch2Nodes[0]);
   let edges = branch1Nodes[1].concat(branch2Nodes[1]);
-  console.log(edges);
-  // console.log(pointers);
   for (let i = 0; i < nodes.length; i++) {
     // check if any of the pointer arrays have that node as a subset
     for (let j = 0; j < pointers.length; j++) {
@@ -40,8 +36,6 @@ export function getFunctionNodes(ptr: string): [Node[], Edge[]] {
         // the node that created pointers[j] needs to be split, ie. nodes[j+1]
         let index = pointers[j].indexOf(nodes[i].id);
         // new node goes from start of superset, to begining of subset
-        console.log("Problem:");
-        console.log(nodes[j + 1]);
         let branchNode = {
           id: pointers[j][0],
           data: branches[pointers[j][0] as keyof typeof branches].slice(
@@ -52,31 +46,11 @@ export function getFunctionNodes(ptr: string): [Node[], Edge[]] {
           type: "branch",
           className: styles.BranchNode,
         };
-        console.log("New:");
-        console.log(branchNode);
-        console.log("Sub:");
-        console.log(nodes[i]);
-        // console.log(branchNode);
 
-        // loop over edges
-        let newEdges = [];
-        let edgesToSplice = [];
-        // for (let k = 0; k < edges.length; k++) {
-        //   if (edges[k].source == pointers[j][0]) {
-        //     edgesToSplice.push(edges[k]);
-        //     newEdges.push({
-        //       id: nodes[i].id + "-" + edges[i].target,
-        //       source: nodes[i].id,
-        //       sourceHandle: "a",
-        //       target: edges[i].target,
-        //     });
-        //   }
-        // }
         nodes.splice(j + 1, 1);
         nodes.splice(j + 1, 0, branchNode);
-        // connect the new node with the sub node
-        console.log("splicing");
-        // edges.splice(edgesToSplice[i], 1);
+        // loop over edges
+
         for (let k = 0; k < edges.length; k++) {
           if (edges[k].source == pointers[j][0]) {
             let edge = edges[k];
@@ -87,10 +61,9 @@ export function getFunctionNodes(ptr: string): [Node[], Edge[]] {
               sourceHandle: "a",
               target: edge.target,
             });
-            // break;
           }
         }
-
+        // connect the new node with the sub node
         edges.push({
           id: pointers[j][0] + "-" + nodes[i].id,
           source: pointers[j][0],
@@ -100,7 +73,6 @@ export function getFunctionNodes(ptr: string): [Node[], Edge[]] {
       }
     }
   }
-  console.log("done");
   return [nodes, edges];
 }
 
