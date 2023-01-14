@@ -11,3 +11,8 @@
   border-bottom: 1px solid #eee;
   padding: 0 1rem;
 }
+
+.content {
+  height: calc(100% - 40px);
+  display: flex;
+}
