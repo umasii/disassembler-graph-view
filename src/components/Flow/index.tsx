@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import ReactFlow, { Node, useNodesState, useEdgesState, addEdge, Connection, Edge, ConnectionLineType } from 'reactflow'
+import ReactFlow, { Node, useNodesState, useEdgesState, addEdge, Connection, Edge, ConnectionLineType, Background, Controls } from 'reactflow'
 import { BranchBlock, FunctionBlock } from './CustomNode'
 import styles from './Flow.module.css'
 import { getFunctionNodes } from './getNodes'
@@ -41,10 +41,13 @@ function Flow({ selectedPointer }: IFlow) {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         nodeTypes={nodeTypes}
+        fitView
         defaultEdgeOptions={defaultEdgeOptions}
         connectionLineType={ConnectionLineType.SmoothStep}
-        fitView
-      />
+      >
+        <Controls />
+        <Background color="#aaaaaa5e" gap={16} />
+      </ReactFlow>
     </div>
   )
 }
