@@ -20,7 +20,7 @@ const BranchNode: FC<NodeProps> = ({ data, xPos, yPos }) => {
         {data.map((el: string) => {
           const [leftThing, rightThing] = el.split('      ')
           return (
-            <div className="pointerItem">
+            <div className="pointerItem" key={el}>
               <div>{leftThing}</div>
               <div>{rightThing}</div>
             </div>
@@ -46,7 +46,7 @@ const FunctionNode: FC<NodeProps> = ({ data, xPos, yPos }) => {
         {data.code?.map((el: string) => {
           const [leftThing, rightThing] = el.split('      ')
           return (
-            <div className="pointerItem">
+            <div className="pointerItem" key={el}>
               <div>{leftThing}</div>
               <div>{rightThing}</div>
             </div>
