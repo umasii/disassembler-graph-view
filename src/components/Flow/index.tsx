@@ -33,7 +33,7 @@ function Flow({ selectedPointer }: IFlow) {
   }, [selectedPointer])
 
   return (
-    <div className={styles.flow}>
+    <div className="grow">
       <ReactFlow
         nodes={nodes}
         onNodesChange={onNodesChange}
@@ -42,6 +42,7 @@ function Flow({ selectedPointer }: IFlow) {
         onConnect={onConnect}
         nodeTypes={nodeTypes}
         fitView
+        attributionPosition="bottom-left"
         defaultEdgeOptions={defaultEdgeOptions}
         connectionLineType={ConnectionLineType.SmoothStep}
       >

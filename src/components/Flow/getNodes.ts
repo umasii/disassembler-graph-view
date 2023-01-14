@@ -1,32 +1,37 @@
-import styles from './Flow.module.css'
 import { Node, Edge } from 'reactflow'
+import dagre from 'dagre'
+
 import branches from '../../constants/branches.json'
 import functions from '../../constants/functions.json'
 
-export function getFunctionNodes(ptr: string): [Node[], Edge[]] {
-  let functionCode = functions[ptr as keyof typeof functions]
+const className = 'border-[1px] border-[#555] p-4 rounded'
+
+export function getFunctionNodes(id: string): [Node[], Edge[]] {
+  let code = functions[id as keyof typeof functions]
+  const position = { x: 0, y: 0 }
+
   let functionNode: Node = {
-    id: ptr,
-    data: {
-      ptr: ptr,
-      code: functionCode
-    },
+    id, data: { id, code },
     position: { x: 0, y: 200 },
     type: 'function',
-    className: styles.BranchNode
+    className
   }
 
-  let lastElement = functionCode[functionCode?.length - 1]
+  let lastElement = code[code?.length - 1]
+
   if (!lastElement.includes('JUMP IF')) {
     return [[functionNode], []]
   }
 
   let branch1 = lastElement.split(':')[1].split('|')[0].trim()
   let branch2 = lastElement.split(':')[1].split('|')[1].trim()
+
   let scannedBranches: Set<string> = new Set()
   let pointers: string[][] = []
-  let branch1Nodes = getBranchNodes(branch1, ptr, scannedBranches, pointers)
-  let branch2Nodes = getBranchNodes(branch2, ptr, scannedBranches, pointers)
+
+  let branch1Nodes = getBranchNodes(branch1, id, scannedBranches, pointers)
+  let branch2Nodes = getBranchNodes(branch2, id, scannedBranches, pointers)
+
   let nodes = [functionNode].concat(branch1Nodes[0]).concat(branch2Nodes[0])
   let edges = branch1Nodes[1].concat(branch2Nodes[1])
 
@@ -43,7 +48,7 @@ export function getFunctionNodes(ptr: string): [Node[], Edge[]] {
           data: branches[pointers[j][0] as keyof typeof branches].slice(0, index),
           position: { x: 300, y: 500 },
           type: 'branch',
-          className: styles.BranchNode
+          className
         }
 
         nodes.splice(j + 1, 1)
@@ -55,7 +60,7 @@ export function getFunctionNodes(ptr: string): [Node[], Edge[]] {
             let edge = edges[k]
             edges.splice(k, 1)
             edges.splice(k, 0, {
-              id: nodes[i].id + '-' + edge.target,
+              id: nodes[i].id + '-' + edge.target, // here two children with same key
               source: nodes[i].id,
               sourceHandle: 'a',
               target: edge.target
@@ -64,7 +69,7 @@ export function getFunctionNodes(ptr: string): [Node[], Edge[]] {
         }
         // connect the new node with the sub node
         edges.push({
-          id: pointers[j][0] + '-' + nodes[i].id,
+          id: pointers[j][0] + '-' + nodes[i].id, // here
           source: pointers[j][0],
           sourceHandle: 'a',
           target: nodes[i].id
@@ -72,27 +77,35 @@ export function getFunctionNodes(ptr: string): [Node[], Edge[]] {
       }
     }
   }
+
+  edges = edges.filter((value, index, self) =>
+    index === self.findIndex((t) => (
+      t.id === value.id
+    ))
+  )
+
   return [nodes, edges]
 }
 
-function getBranchNodes(ptr: string, source: string, scannedBranches: Set<string>, pointers: string[][]): [Node[], Edge[]] {
+function getBranchNodes(id: string, source: string, scannedBranches: Set<string>, pointers: string[][]): [Node[], Edge[]] {
   let branchEdge = {
-    id: source + '-' + ptr + ' - ' + pointers.length,
-    source: source,
+    id: source + '-' + id,
+    source,
     sourceHandle: 'a',
-    target: ptr
+    target: id
   }
-  if (scannedBranches.has(ptr)) {
+  if (scannedBranches.has(id)) {
     return [[], [branchEdge]]
   }
-  scannedBranches.add(ptr)
-  let branchCode = branches[ptr as keyof typeof branches]
+  scannedBranches.add(id)
+  let branchCode = branches[id as keyof typeof branches]
+
   let branchNode = {
-    id: ptr,
+    id,
     data: branchCode,
     position: { x: 300, y: 500 },
     type: 'branch',
-    className: styles.BranchNode
+    className
   }
   let scannedPointers = []
 
@@ -107,8 +120,8 @@ function getBranchNodes(ptr: string, source: string, scannedBranches: Set<string
 
   let branch1 = lastElement.split(':')[1].split('|')[0].trim()
   let branch2 = lastElement.split(':')[1].split('|')[1].trim()
-  let branch1Nodes = getBranchNodes(branch1, ptr, scannedBranches, pointers)
-  let branch2Nodes = getBranchNodes(branch2, ptr, scannedBranches, pointers)
+  let branch1Nodes = getBranchNodes(branch1, id, scannedBranches, pointers)
+  let branch2Nodes = getBranchNodes(branch2, id, scannedBranches, pointers)
   // @ts-ignore
   let nodes = [branchNode].concat(branch1Nodes[0]).concat(branch2Nodes[0])
   // @ts-ignore
