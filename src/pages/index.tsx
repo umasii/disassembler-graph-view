@@ -24,7 +24,7 @@ const Home: NextPage = () => {
       <header className={styles.header}>Disassembly Explorer</header>
       <div className={styles.content}>
         <Nav functions={functions} selectedPointer={selectedPointer} setSelectedPointer={setSelectedPointer} />
-        <Flow />
+        <Flow selectedPointer={selectedPointer} />
       </div>
     </div>
   )
