@@ -8,7 +8,6 @@ const className = 'border-[1px] border-[#555] p-4 rounded'
 
 export function getFunctionNodes(id: string): [Node[], Edge[]] {
   let code = functions[id as keyof typeof functions]
-  const position = { x: 0, y: 0 }
 
   let functionNode: Node = {
     id, data: { id, code },
@@ -112,20 +111,22 @@ function getBranchNodes(id: string, source: string, scannedBranches: Set<string>
   for (let i = 0; i < branchCode.length; i++) {
     scannedPointers.push(branchCode[i].split(' ')[0])
   }
+
   pointers.push(scannedPointers)
+
   let lastElement = branchCode[branchCode?.length - 1]
-  if (!lastElement.includes('JUMP IF')) {
-    return [[branchNode], [branchEdge]]
-  }
+
+  if (!lastElement.includes('JUMP IF')) { return [[branchNode], [branchEdge]] }
 
   let branch1 = lastElement.split(':')[1].split('|')[0].trim()
   let branch2 = lastElement.split(':')[1].split('|')[1].trim()
+
   let branch1Nodes = getBranchNodes(branch1, id, scannedBranches, pointers)
   let branch2Nodes = getBranchNodes(branch2, id, scannedBranches, pointers)
-  // @ts-ignore
-  let nodes = [branchNode].concat(branch1Nodes[0]).concat(branch2Nodes[0])
-  // @ts-ignore
-  let edges = [branchEdge].concat(branch1Nodes[1]).concat(branch2Nodes[1])
+
+  let nodes = [branchNode].concat(branch1Nodes[0] as any).concat(branch2Nodes[0] as any)
+
+  let edges = [branchEdge].concat(branch1Nodes[1] as any).concat(branch2Nodes[1] as any)
 
   return [nodes, edges]
 }
