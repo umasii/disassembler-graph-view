@@ -1,5 +1,3 @@
-import styles from './Nav.module.css'
-import functions from '../../functions.js'
 import { Dispatch, SetStateAction, useState } from 'react'
 
 interface INav {
