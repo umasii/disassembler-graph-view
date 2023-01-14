@@ -4,9 +4,9 @@ Fork of https://github.com/wbkd/react-flow-example-apps/tree/main/reactflow-next
 
 for the disassembler, see https://github.com/umasii/ips-disassembler.
 
-To see the graph of a function, change the argument to `getFunctionNodes()`in `src/components/Flow/index.tsx`.
+To see the graph of a function, click on the function on the left navigation.
 
-Doesn't really have code to read files right now as I can't figure out how that works with Next.JS. For the time being, edit `functions.js` and `branches.js` in the src directory and export the output of my disassembler. I plan on fixing this soon.
+Edit `functions.json` and `branches.json` in the src/constants directory and export the output of my disassembler.
 
 Just as a disclaimer, I have no frontend experience so please don't judge this code too hard. Pull requests welcome.
 
