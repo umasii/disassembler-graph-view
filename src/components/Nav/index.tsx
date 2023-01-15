@@ -20,7 +20,7 @@ function Nav({ functions, selectedPointer, setSelectedPointer }: INav) {
             return (
               <div className={`border-[1px] rounded p-2 mb-4 ${selectedPointer !== key && 'opacity-60'} cursor-pointer`} key={key} onClick={() => setSelectedPointer(key)}>
                 <div>Pointer: {key}</div>
-                <div>Instructions: {value.length}</div>
+                <div>Blocks: {value.length}</div>
               </div>
             )
           }
