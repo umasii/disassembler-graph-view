@@ -1,5 +1,7 @@
 # Disassembler Graph View
 
+Edit: Huge shoutout to evade (https://github.com/depicts) for QOL improvements such as adding a sidebar and generally making my frontend code not terrible.
+
 Fork of https://github.com/wbkd/react-flow-example-apps/tree/main/reactflow-nextjs for the purpose of viewing the control flow of bytecode functions. All the code I wrote is in `src/components/Flow/getNodes.tsx`.
 
 for the disassembler, see https://github.com/umasii/ips-disassembler.
